@@ -1,13 +1,15 @@
 <template>
   <div>
     <!-- 错误提示 -->
-    <div v-if="errorMessage" style="margin-bottom: 10px;">
-      <tiny-alert type="error" :description="errorMessage" @close="clearError"></tiny-alert>
+    <div v-if="errorMessage" style="margin-bottom: 10px; padding: 10px; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 4px; color: #dc2626;">
+      {{ errorMessage }}
+      <button @click="clearError" style="float: right; background: none; border: none; cursor: pointer;">✕</button>
     </div>
 
     <!-- 成功提示 -->
-    <div v-if="successMessage" style="margin-bottom: 10px;">
-      <tiny-alert type="success" :description="successMessage" @close="clearSuccess"></tiny-alert>
+    <div v-if="successMessage" style="margin-bottom: 10px; padding: 10px; background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 4px; color: #16a34a;">
+      {{ successMessage }}
+      <button @click="clearSuccess" style="float: right; background: none; border: none; cursor: pointer;">✕</button>
     </div>
 
     <div style="padding-bottom: 10px; padding-top: 10px">
@@ -277,7 +279,7 @@
         style="border-radius: 0px"
       >
         <tiny-form-item label="数据盘" style="border-radius: 0px">
-          <div v-for="() in state.dataDisk" style="margin-top: 12px; display: flex">
+          <div v-for="() in 3" style="margin-top: 12px; display: flex">
             <tiny-icon-panel-mini
               style="margin-right: 10px; width: 16px; height: 16px"
               fill="currentColor"
@@ -388,8 +390,7 @@ import {
   Select as TinySelect,
   Search as TinySearch,
   Grid as TinyGrid,
-  TimeLine as TinyTimeLine,
-  Alert as TinyAlert
+  TimeLine as TinyTimeLine
 } from '@opentiny/vue'
 import { IconPanelMini, IconPlus } from '@opentiny/vue-icon'
 import * as vue from 'vue'
@@ -495,9 +496,7 @@ const instanceData = vue.ref([
 
 const selectedInstance = vue.ref(null)
 
-// 原有的dataDisk状态
-const state = vue.reactive({ dataDisk: [1, 2, 3] })
-wrap({ state })
+// 移除dataDiskCount避免冲突
 
 // 业务逻辑方法
 const onBillingModeChange = (value) => {
@@ -668,7 +667,6 @@ const clearSuccess = () => {
 }
 
 wrap({
-  state,
   currentStep,
   errorMessage,
   successMessage,
